@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    // environment{
-    //     NETLIFY_SITE_ID = 'b32c17af-59a1-4b98-afef-f186530543dd'
-    //     NETLIFY_AUTH_TOKEN = credentials('myTokena')
-    // }
+    environment{
+        NETLIFY_SITE_ID = 'd13035fe-313f-47dd-888c-53185a407365'
+        NETLIFY_AUTH_TOKEN = credentials('ErikaNetlyfi')
+    }
     stages {
         stage('Build') {
             agent{
@@ -37,23 +37,23 @@ pipeline {
                 '''
             }
         }    
-        // stage('Deploy'){
-        //     agent{
-        //         docker{
-        //             image 'node:20.16.0-alpine'
-        //             reuseNode true
-        //         }
-        //     }
+        stage('Deploy'){
+            agent{
+                docker{
+                    image 'node:20.16.0-alpine'
+                    reuseNode true
+                }
+            }
         
-        // steps{
-        //     sh'''
-        //         npm install netlify-cli
-        //         node_modules/.bin/netlify --version
-        //         echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
-        //         node_modules/.bin/netlify status
-        //         node_modules/.bin/netlify deploy --prod --dir=build
-        //     '''
-        //     }
-        // }
+        steps{
+            sh'''
+                npm install netlify-cli
+                node_modules/.bin/netlify --version
+                echo "Deploying to production. Site ID: $NETLIFY_SITE_ID"
+                node_modules/.bin/netlify status
+                node_modules/.bin/netlify deploy --prod --dir=build
+            '''
+            }
+        }
     }
 }
